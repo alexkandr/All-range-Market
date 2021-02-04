@@ -1,0 +1,44 @@
+﻿@model LoginModel
+    <div class="login">
+        <div class="wrap">
+            <div class="col_1_of_login span_1_of_login">
+                <h4 class="title">Регистрация нового пользователя</h4>
+                <p>Приобретайте уникальные и стильные вещи от лучших дизайнеров</p>
+                <div class="button1">
+                    <a asp-action="Register" asp-controller="Account">
+                        <input type="submit" name="Submit" value="Продолжить">
+                    </a>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="col_1_of_login span_1_of_login">
+                <div class="login-title">
+                    <h4 class="title">Войти в аккаунт</h4>
+                    <div class="comments-area">
+                        <form asp-action="Login" asp-controller="Account" method="post">
+                            <input type="hidden" asp-for="ReturnUrl" />
+                            <p>
+                                <label asp-for="Email">Логин</label> <span>*</span>
+                                <input asp-for="Email" type="text" value="">
+                            </p>
+                            <p>
+                                <label asp-for="Password">Пароль</label> <span>*</span>
+                                <input asp-for="Password" type="password" value=""/>
+                            </p>
+                            <p>
+                                <label asp-for="RememberMe">Запомнить меня</label>
+                                <input type="checkbox" asp-for="RememberMe" value="true" />
+                            </p>
+                            <p id="login-form-remember">
+                                <label><a asp-action="Forgotten" asp-controller="Account">Забыли пароль ? </a></label>
+                            </p>
+                            <p>
+                                <input type="submit" value="Login">
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>

@@ -1,0 +1,34 @@
+﻿@model RegisterModel
+<div class="register_account">
+    <div class="wrap">
+        <h4 class="title">Создать аккаунт</h4>
+        <form method="Post" asp-controller="Account" asp-action="Register">
+            <div class="col_1_of_2 span_1_of_2">
+                <div>
+                    <label asp-for="Name">Имя</label>
+                    <input asp-for="Name" type="text" value="Имя" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Имя';}">
+                </div>
+                <div>
+                    <label asp-for="PhoneNumber">Номер телефон</label>
+                    <input asp-for="PhoneNumber" type="text" value="Номер телефона" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Номер телефона';}">
+                </div>
+                <div>
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" type="text" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'E-Mail';}">
+                </div>
+                <div>
+                    <label asp-for="Password">Пароль</label>
+                    <input asp-for="Password" type="password" />
+                </div>
+                <div>
+                    <label asp-for="PasswordConfirm">Подтвердите пароль</label>
+                    <input asp-for="PasswordConfirm" type="password" />
+                </div>
+            </div>
+            <div class="col_1_of_2 span_1_of_2">
+                <button class="grey" type="submit">Подтвердить</button>
+                <p class="terms">Нажимая подтвердить вы соглашаетесь с <a href="#">Политикой конфиденциальности &amp; Правилами пользования</a>.</p>
+            </div><div class="clear"></div>
+        </form>
+    </div>
+</div>

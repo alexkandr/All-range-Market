@@ -1,0 +1,19 @@
+﻿@model All_Range_Market.Models.ViewModels.ForgottenModel
+
+    <div class="login">
+        <div class="wrap">
+            <div class="col_1_of_login span_1_of_login">
+                <div class="comments-area">
+                    <form asp-action="Forgotten" asp-controller="Account" method="post">
+                        <p>
+                            <label asp-for="Email">Введите Email</label>
+                            <input type="text" asp-for="Email" value="" />
+                        </p>
+                            <input type="submit" value="Подтвердить"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
