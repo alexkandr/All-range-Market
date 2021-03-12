@@ -44,6 +44,7 @@
     <script type="text/javascript" src="~/js/megamenu.js"></script>
     <script>$(document).ready(function () { $(".megamenu").megamenu(); });</script>
     <!-- end menu -->
+    <link rel="stylesheet" href="~/css/etalage.css">
     <!-- top scrolling -->
     <script type="text/javascript" src="~/js/move-top.js"></script>
     <script type="text/javascript" src="~/js/easing.js"></script>
@@ -60,18 +61,19 @@
     <div class="header-top">
         <div class="wrap">
             <div class="logo">
-                <a asp-controller="Home" asp-action="Index"><img src="~/images/logo.png" alt="All Range Market" /></a>
+                <a asp-controller="Home" asp-action="Index" ><img src="~/images/logo.png" alt="All Range Market" /></a>
             </div>
             <div class="cssmenu">
                     <ul>
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="active"><a asp-controller="Account" asp-action="Register">Регистрация</a></li>
-                            <li><a asp-controller="Account" asp-action="Login" asp-route-returnUrl="">Личный кабинет</a></li>
+                            <li><a asp-controller="Account" asp-action="Login">Личный кабинет</a></li>
                         }
                         else
                         {
                             <li><a asp-controller="Account" asp-action="Profile">Личный кабинет</a></li>
+                            <li class="active"><a asp-controller="Account" asp-action="Logout" asp-route-reurnUrl="@this.Path">Выйти</a></li>
                         }
                         <li><a href="checkout.html">Оформить заказ</a></li>
                     </ul>
@@ -530,7 +532,7 @@
                             <li>
                                 <span class="m_8">Подпишитесь на рассылку и получите скидку 15%</span>
                                 <div class="search">
-                                    <input type="text" name="s" class="textbox" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+                                    <input type="text" name="s" class="textbox" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
                                     <input type="submit" value="Subscribe" id="submit" name="submit">
                                     <div id="response"> </div>
                                 </div><div class="clear"></div>

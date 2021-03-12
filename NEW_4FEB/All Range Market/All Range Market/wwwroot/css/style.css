@@ -1203,7 +1203,8 @@ p#login-form-remember label a:hover{
 .register_account{
 	padding:3% 0;
 }
-.register_account form input[type="text"], .register_account form select, .register_account form input[type=password] {
+.register_account form input[type="text"], .register_account form select, 
+.register_account form input[type=password], .register_account form input[type=tel] {
 	font-size: 0.8125em;
 	color: #999;
 	padding: 8px;

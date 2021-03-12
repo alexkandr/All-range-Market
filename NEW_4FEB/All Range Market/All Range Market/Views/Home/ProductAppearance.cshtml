@@ -17,7 +17,7 @@
     <span class="rating">
         @{ for (int i = 5; i > 0; i--)
             {
-                if (5 - Model.Vendor.TrustRate >= i)
+                if (5 - Model.Rate >= i)
                 {
                     <input type="radio" class="rating-input" id="rating-input-1-@i" name="rating-input-1">
                     <label for="rating-input-1-@i" class="rating-star"></label>
@@ -29,14 +29,14 @@
                 }
             }
         }
-        (45)
+        (@Model.Bought)
     </span>
     <ul class="list">
         <li>
             <img src="images/plus.png" alt="" />
             <ul class="icon1 sub-icon1 profile_img">
                 <li>
-                    <a class="active-icon c1" href="#">В корзину </a>
+                    <a class="active-icon c1">В корзину </a>
                     <ul class="sub-icon1 list">
                         <li><h3>sed diam nonummy</h3><a href=""></a></li>
                         <li><p>@Model.Description</p></li>

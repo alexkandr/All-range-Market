@@ -53,8 +53,10 @@ namespace All_Range_Market.Models
                         Price = 18299,
                         gender = GenderPref.Men,
                         Vendor = nike,
+                        Rate = 4.5,
+                        Bought = 5,
                         AvaibleSizes = new List<ProductSize>{ new ProductSize("M"), new ProductSize("S") },
-                        Images = new List<Image> { new Image(@"\Images\Download(3).png"), new Image(@"\Images\Download(4).png") }
+                        Images = new List<Image> { new Image(@"\Images\Companies\Nike\Download(3).png"), new Image(@"\Images\Companies\Nike\Download(4).png") }
                     },
                     new Product
                     {
@@ -64,8 +66,10 @@ namespace All_Range_Market.Models
                         Price = 8669,
                         gender = GenderPref.Women,
                         Vendor = nike,
+                        Rate = 4.0,
+                        Bought = 45,
                         AvaibleSizes = new List<ProductSize> { new ProductSize("M"), new ProductSize("S"), new ProductSize("L") },
-                        Images = new List<Image> { new Image(@"\Images\Download(1).png"), new Image( @"\Images\Download.png"), new Image(@"\Images\Download(2).png") }
+                        Images = new List<Image> { new Image(@"\Images\Companies\Nike\Download(1).png"), new Image( @"\Images\Companies\Nike\Download.png"), new Image(@"\Images\Companies\Nike\Download(2).png") }
                     },
                     new Product
                     {
@@ -75,8 +79,10 @@ namespace All_Range_Market.Models
                         Price = 7490,
                         gender = GenderPref.Men,
                         Vendor = nb,
+                        Rate = 2.0,
+                        Bought = 0,
                         AvaibleSizes = new List<ProductSize> { new ProductSize("M"), new ProductSize("S"), new ProductSize("L") },
-                        Images = new List<Image> { new Image(@"\Images\Download(5).png") }
+                        Images = new List<Image> { new Image(@"\Images\Companies\NewBalance\Download(5).png") }
                     },
                     new Product
                     {
@@ -86,11 +92,13 @@ namespace All_Range_Market.Models
                         Price = 5000,
                         gender = GenderPref.Kids,
                         Vendor = asics,
+                        Rate = 4.6,
+                        Bought = 20,
                         AvaibleSizes = new List<ProductSize> { new ProductSize("L") },
-                        Images = new List<Image> {new Image( @"\Images\Download(2).jpg"), new Image(@"\Images\Download(3).jpg")}
+                        Images = new List<Image> {new Image( @"\Images\Companies\Asics\Download(2).jpg"), new Image(@"\Images\Companies\Asics\Download(3).jpg")}
                     }
                     
-                );
+                );;
                 context.Comments.AddRange
                 (new List<Comment>
                     {
@@ -105,7 +113,7 @@ namespace All_Range_Market.Models
                     {
                         Vendor = nike,
                         Content = "Не люблю найк и всё что с ним связано",
-                        User = "NikeHater",
+                        User = "NikesHater",
                         Time = DateTime.Now
                     }
                     }

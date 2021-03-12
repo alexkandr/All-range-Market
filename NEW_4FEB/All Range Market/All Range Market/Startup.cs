@@ -51,8 +51,10 @@ namespace All_Range_Market
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
             else
+            {
                 app.UseHsts();
-            app.UseStatusCodePages();
+            }
+            app.UseStatusCodePagesWithReExecute("/error", "?code={0}");
             app.UseCookiePolicy();
             app.UseStaticFiles();
             app.UseSession();
@@ -60,6 +62,8 @@ namespace All_Range_Market
             app.UseRouting();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => {
+                endpoints.MapControllerRoute("error", "/error{code:int}",
+                    new { Controller = "Home", action = "Error" });
                 endpoints.MapControllerRoute("login", "login",
                     new { Controller = "Account", action = "Login" });
                 endpoints.MapControllerRoute("Reg", "Registration",
@@ -70,16 +74,16 @@ namespace All_Range_Market
                     new { Controller = "Home", action = "Shop"});
                 endpoints.MapControllerRoute("product", "Brand/{brand}/{productId:int}",
                     new { Controller = "Home", action = "SingleProduct" });
-                endpoints.MapControllerRoute("seller", "{brand}",
+                endpoints.MapControllerRoute("seller", "Brand/{brand}",
                     new { Controller = "Home", action = "Shop", productPage = 1 });
                 endpoints.MapControllerRoute("pagination", "Catalog/Page{productPage:int}",
                     new { Controller = "Home", action = "Catalog", productPage = 1 });
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
-                endpoints.MapBlazorHub();
             });
 
             SeedData.EnsurePopulated(app);
+            SeedUsers.EnsurePopulated(app);
         }
     }
 }

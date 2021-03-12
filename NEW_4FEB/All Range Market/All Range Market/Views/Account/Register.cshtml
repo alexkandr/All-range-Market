@@ -10,7 +10,7 @@
                 </div>
                 <div>
                     <label asp-for="PhoneNumber">Номер телефон</label>
-                    <input asp-for="PhoneNumber" type="text" value="Номер телефона" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Номер телефона';}">
+                    <input asp-for="PhoneNumber" type="tel" value="Номер телефона" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Номер телефона';}">
                 </div>
                 <div>
                     <label asp-for="Email">Email</label>
@@ -28,6 +28,17 @@
             <div class="col_1_of_2 span_1_of_2">
                 <button class="grey" type="submit">Подтвердить</button>
                 <p class="terms">Нажимая подтвердить вы соглашаетесь с <a href="#">Политикой конфиденциальности &amp; Правилами пользования</a>.</p>
+                <div>
+                    @{ 
+                        foreach (var modelState in ViewData.ModelState.Values) 
+                        {
+                            foreach (var error in modelState.Errors) 
+                            {
+                                <p>@error.ErrorMessage</p>;
+                            }
+                        }
+                    }
+                </div>
             </div><div class="clear"></div>
         </form>
     </div>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace All_Range_Market.Migrations
 {
-    public partial class Developing_130 : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,18 +11,18 @@ namespace All_Range_Market.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    OrderID = table.Column<int>(nullable: false)
+                    OrderID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: false),
-                    Line1 = table.Column<string>(nullable: false),
-                    City = table.Column<string>(nullable: false),
-                    State = table.Column<string>(nullable: false),
-                    Zip = table.Column<string>(nullable: true),
-                    GiftWrap = table.Column<bool>(nullable: false),
-                    DeliveryType = table.Column<int>(nullable: false),
-                    PhoneNumber = table.Column<string>(nullable: false),
-                    Method = table.Column<int>(nullable: false),
-                    Shipped = table.Column<bool>(nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Line1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Zip = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GiftWrap = table.Column<bool>(type: "bit", nullable: false),
+                    DeliveryType = table.Column<int>(type: "int", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Method = table.Column<int>(type: "int", nullable: false),
+                    Shipped = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,11 +33,11 @@ namespace All_Range_Market.Migrations
                 name: "Vendors",
                 columns: table => new
                 {
-                    VendorId = table.Column<int>(nullable: false)
+                    VendorId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Brand = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    TrustRate = table.Column<double>(nullable: false)
+                    Brand = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TrustRate = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,12 +48,12 @@ namespace All_Range_Market.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    User = table.Column<string>(nullable: true),
-                    VendorId = table.Column<int>(nullable: true),
-                    Time = table.Column<DateTime>(nullable: false),
-                    Content = table.Column<string>(nullable: true)
+                    User = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VendorId = table.Column<int>(type: "int", nullable: true),
+                    Time = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -70,14 +70,16 @@ namespace All_Range_Market.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false),
-                    Category = table.Column<string>(nullable: false),
-                    gender = table.Column<int>(nullable: false),
-                    VendorId = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rate = table.Column<double>(type: "float", nullable: false),
+                    Bought = table.Column<int>(type: "int", nullable: false),
+                    gender = table.Column<int>(type: "int", nullable: false),
+                    VendorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -94,10 +96,10 @@ namespace All_Range_Market.Migrations
                 name: "Image",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Path = table.Column<string>(nullable: true),
-                    ProductId = table.Column<int>(nullable: true)
+                    Path = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -114,10 +116,10 @@ namespace All_Range_Market.Migrations
                 name: "ProductSize",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Size = table.Column<string>(nullable: true),
-                    ProductId = table.Column<int>(nullable: true)
+                    Size = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -134,12 +136,12 @@ namespace All_Range_Market.Migrations
                 name: "CartLine",
                 columns: table => new
                 {
-                    CartLineID = table.Column<int>(nullable: false)
+                    CartLineID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<int>(nullable: true),
-                    SizeId = table.Column<int>(nullable: true),
-                    Quantity = table.Column<int>(nullable: false),
-                    OrderID = table.Column<int>(nullable: true)
+                    ProductId = table.Column<int>(type: "int", nullable: true),
+                    SizeId = table.Column<int>(type: "int", nullable: true),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    OrderID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -1,108 +1,151 @@
-﻿@model All_Range_Market.Models.Product
+﻿@model SingleProductViewModel
+    <script type="text/javascript" src="~/js/jquery.jscrollpane.min.js"></script>
+    <script type="text/javascript" id="sourcecode">
+        $(function () {
+            $('.scroll-pane').jScrollPane();
+        });
+    </script>
+    <!----details-product-slider--->
+    <!-- Include the Etalage files -->
+    <script src="~/js/jquery.etalage.min.js"></script>
+    <!-- Include the Etalage files -->
+    <script>
+        jQuery(document).ready(function ($) {
 
-    <div class="cont span_2_of_3">
-        <div class="labout span_1_of_a1">
-            <ul id="etalage">
-                <li>
-                    <a href="optionallink.html">
-                        <img class="etalage_thumb_image" src="images/t1.jpg " />
-                        <img class="etalage_source_image" src="images/t2.jpg" />
-                    </a>
-                </li>
-                <li>
-                    <img class="etalage_thumb_image" src="images/t2.jpg" />
-                    <img class="etalage_source_image" src="images/t2.jpg" />
-                </li>
-            </ul>
-        </div>
-        <div class="cont1 span_2_of_a1">
-            <h3 class="m_3">@Model.Name</h3>
+            $('#etalage').etalage({
+                thumb_image_width: 300,
+                thumb_image_height: 400,
 
-            <div class="price_single">
-                <span class="actual">@Model.Price</span><a href="#">Заказать</a>
-            </div>
-            <ul class="options">
-                <h4 class="m_9">Выберите размер</h4>
-                <!-- avaible sizes for--> <li><a href="#">6</a></li>
+                show_hint: true,
+                click_callback: function (image_anchor, instance_id) {
+                    alert('Callback example:\nYou clicked on an image with the anchor: "' + image_anchor + '"\n(in Etalage instance: "' + instance_id + '")');
+                }
+            });
+            // This is for the dropdown list example:
+            $('.dropdownlist').change(function () {
+                etalage_show($(this).find('option:selected').attr('class'));
+            });
+
+        });
+    </script>
+    <!----//details-product-slider--->
+
+
+    <div class="single">
+        <div class="wrap">
+            <div class="cont span_2_of_3">
+                <div class="labout span_1_of_a1">
+                    <ul id="etalage">
+                        @foreach (var img in Model.Product.Images)
+                        {
+                            <li>
+                                <img class="etalage_thumb_image" src="@img.Path" />
+                                <img class="etalage_source_image" src="@img.Path" />
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="cont1 span_2_of_a1">
+                    <h3 class="m_3">@Model.Product.Name</h3>
+
+                    <div class="price_single">
+                        <span class="actual">@Model.Product.Price</span><a href="#">Заказать</a>
+                    </div>
+                    <ul class="options">
+                        <h4 class="m_9">Выберите размер</h4>
+                        <!-- avaible sizes for-->
+                        @foreach (var size in Model.Product.AvaibleSizes)
+                        {
+                            <li><a href="#">@size.Size</a></li>
+                        }
+                        <div class="clear"></div>
+                    </ul>
+                    <div class="btn_form">
+                        <form>
+                            <input type="submit" value="Быстрая покупка" title="">
+                        </form>
+                    </div>
+                    <ul class="add-to-links">
+                        <li><img src="images/wish.png" alt="" /><a href="#">В избранное</a></li>
+                    </ul>
+                    <p class="m_desc">@Model.Product.Description</p>
+
+                    <div class="social_single">
+                        <ul>
+                            <li class="fb"><a href=""><span> </span></a></li>
+                            <li class="tw"><a href=""><span> </span></a></li>
+                            <li class="g_plus"><a href=""><span> </span></a></li>
+                            <li class="rss"><a href=""><span> </span></a></li>
+                        </ul>
+                    </div>
+                </div>
                 <div class="clear"></div>
-            </ul>
-            <div class="btn_form">
-                <form>
-                    <input type="submit" value="Быстрая покупка" title="">
-                </form>
-            </div>
-            <ul class="add-to-links">
-                <li><img src="images/wish.png" alt="" /><a href="#">В избранное</a></li>
-            </ul>
-            <p class="m_desc">@Model.Description</p>
 
-            <div class="social_single">
-                <ul>
-                    <li class="fb"><a href="#"><span> </span></a></li>
-                    <li class="tw"><a href="#"><span> </span></a></li>
-                    <li class="g_plus"><a href="#"><span> </span></a></li>
-                    <li class="rss"><a href="#"><span> </span></a></li>
+
+                <ul id="flexiselDemo3">
+                    <!-- Familliar foreach-->
+                    @foreach(var p in Model.Previous.Skip(1).Take(5))
+                    {
+                        <li><img src="@p.Images[0].Path" />
+                            <div class="grid-flex"><a asp-controller="Home" asp-action="SingleProduct" asp-route-brand="@p.Vendor.Brand" asp-route-productId="@p.ProductId">@p.Name</a>
+                                <p>@p.Price</p>
+                            </div>
+                        </li>
+                    }
                 </ul>
+                <script type="text/javascript">
+                    $(window).load(function () {
+                        $("#flexiselDemo1").flexisel();
+                        $("#flexiselDemo2").flexisel({
+                            enableResponsiveBreakpoints: true,
+                            responsiveBreakpoints: {
+                                portrait: {
+                                    changePoint: 480,
+                                    visibleItems: 1
+                                },
+                                landscape: {
+                                    changePoint: 640,
+                                    visibleItems: 2
+                                },
+                                tablet: {
+                                    changePoint: 768,
+                                    visibleItems: 3
+                                }
+                            }
+                        });
+
+                        $("#flexiselDemo3").flexisel({
+                            visibleItems: 5,
+                            animationSpeed: 1000,
+                            autoPlay: true,
+                            autoPlaySpeed: 3000,
+                            pauseOnHover: true,
+                            enableResponsiveBreakpoints: true,
+                            responsiveBreakpoints: {
+                                portrait: {
+                                    changePoint: 480,
+                                    visibleItems: 1
+                                },
+                                landscape: {
+                                    changePoint: 640,
+                                    visibleItems: 2
+                                },
+                                tablet: {
+                                    changePoint: 768,
+                                    visibleItems: 3
+                                }
+                            }
+                        });
+
+                    });
+                </script>
+                <script type="text/javascript" src="~/js/jquery.flexisel.js"></script>
+                <div class="toogle">
+                    <h3 class="m_3">Характеристики</h3>
+                    <p class="m_text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+                </div>
+                <!-- Comments section-->
             </div>
+            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
-
-
-        <ul id="flexiselDemo3">
-            <!-- Familliar foreach-->
-            <li><img src="images/pic11.jpg" /><div class="grid-flex"><a href="#">Bloch</a><p>Rs 850</p></div></li>
-        </ul>
-        <script type="text/javascript">
-		 $(window).load(function() {
-			$("#flexiselDemo1").flexisel();
-			$("#flexiselDemo2").flexisel({
-				enableResponsiveBreakpoints: true,
-		    	responsiveBreakpoints: {
-		    		portrait: {
-		    			changePoint:480,
-		    			visibleItems: 1
-		    		},
-		    		landscape: {
-		    			changePoint:640,
-		    			visibleItems: 2
-		    		},
-		    		tablet: {
-		    			changePoint:768,
-		    			visibleItems: 3
-		    		}
-		    	}
-		    });
-
-			$("#flexiselDemo3").flexisel({
-				visibleItems: 5,
-				animationSpeed: 1000,
-				autoPlay: true,
-				autoPlaySpeed: 3000,
-				pauseOnHover: true,
-				enableResponsiveBreakpoints: true,
-		    	responsiveBreakpoints: {
-		    		portrait: {
-		    			changePoint:480,
-		    			visibleItems: 1
-		    		},
-		    		landscape: {
-		    			changePoint:640,
-		    			visibleItems: 2
-		    		},
-		    		tablet: {
-		    			changePoint:768,
-		    			visibleItems: 3
-		    		}
-		    	}
-		    });
-
-		});
-        </script>
-        <script type="text/javascript" src="js/jquery.flexisel.js"></script>
-        <div class="toogle">
-            <h3 class="m_3">Характеристики</h3>
-            <p class="m_text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
-        </div>
-        <!-- Comments section-->
     </div>
-    <div class="clear"></div>

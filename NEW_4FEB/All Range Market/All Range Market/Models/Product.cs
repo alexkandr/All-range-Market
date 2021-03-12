@@ -30,6 +30,9 @@ namespace All_Range_Market.Models
 
         [Required(ErrorMessage = "Необходимо добавить категорию")]
         public string Category { get; set; }
+        [Range(0.0, 5.0)]
+        public double Rate { get; set; }
+        public int Bought { get; set; }
 
         public GenderPref gender { get; set; }
         public string GenToString()

@@ -10,23 +10,23 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace All_Range_Market.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20201105203542_Developing_1.3.0")]
-    partial class Developing_130
+    [Migration("20210305002818_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.0");
 
             modelBuilder.Entity("All_Range_Market.Models.CartLine", b =>
                 {
                     b.Property<int>("CartLineID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<int?>("OrderID")
                         .HasColumnType("int");
@@ -56,7 +56,7 @@ namespace All_Range_Market.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
@@ -82,7 +82,7 @@ namespace All_Range_Market.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Path")
                         .HasColumnType("nvarchar(max)");
@@ -102,7 +102,7 @@ namespace All_Range_Market.Migrations
                     b.Property<int>("OrderID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -149,7 +149,10 @@ namespace All_Range_Market.Migrations
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
+
+                    b.Property<int>("Bought")
+                        .HasColumnType("int");
 
                     b.Property<string>("Category")
                         .IsRequired()
@@ -165,6 +168,9 @@ namespace All_Range_Market.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<double>("Rate")
+                        .HasColumnType("float");
 
                     b.Property<int>("VendorId")
                         .HasColumnType("int");
@@ -184,7 +190,7 @@ namespace All_Range_Market.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
@@ -204,7 +210,7 @@ namespace All_Range_Market.Migrations
                     b.Property<int>("VendorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");
@@ -233,6 +239,10 @@ namespace All_Range_Market.Migrations
                     b.HasOne("All_Range_Market.Models.ProductSize", "Size")
                         .WithMany()
                         .HasForeignKey("SizeId");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Size");
                 });
 
             modelBuilder.Entity("All_Range_Market.Models.Comment", b =>
@@ -240,6 +250,8 @@ namespace All_Range_Market.Migrations
                     b.HasOne("All_Range_Market.Models.Vendor", "Vendor")
                         .WithMany()
                         .HasForeignKey("VendorId");
+
+                    b.Navigation("Vendor");
                 });
 
             modelBuilder.Entity("All_Range_Market.Models.Image", b =>
@@ -256,6 +268,8 @@ namespace All_Range_Market.Migrations
                         .HasForeignKey("VendorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Vendor");
                 });
 
             modelBuilder.Entity("All_Range_Market.Models.ProductSize", b =>
@@ -263,6 +277,23 @@ namespace All_Range_Market.Migrations
                     b.HasOne("All_Range_Market.Models.Product", null)
                         .WithMany("AvaibleSizes")
                         .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("All_Range_Market.Models.Order", b =>
+                {
+                    b.Navigation("Lines");
+                });
+
+            modelBuilder.Entity("All_Range_Market.Models.Product", b =>
+                {
+                    b.Navigation("AvaibleSizes");
+
+                    b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("All_Range_Market.Models.Vendor", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

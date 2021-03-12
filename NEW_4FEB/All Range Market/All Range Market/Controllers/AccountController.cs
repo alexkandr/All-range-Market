@@ -12,11 +12,13 @@ namespace All_Range_Market.Controllers
     {
         private UserManager<IdentityUser> userManager;
         private SignInManager<IdentityUser> signInManager;
+        private RoleManager<IdentityRole> roleManager;
 
-        public AccountController(UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> signInMgr)
+        public AccountController(UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> signInMgr, RoleManager<IdentityRole> rlMgr)
         {
             userManager = userMgr;
             signInManager = signInMgr;
+            roleManager = rlMgr;
         }
         [HttpGet]
         public ViewResult Login(string returnUrl)
@@ -31,9 +33,10 @@ namespace All_Range_Market.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await userManager.FindByEmailAsync(model.Email);
                 var result =
-                await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-                if (result.Succeeded)
+                await signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+                    if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
@@ -83,9 +86,16 @@ namespace All_Range_Market.Controllers
         {
             return RedirectToAction("Index", "Home");
         }
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
-            return View();
+            var userRoles = await userManager.GetRolesAsync(await userManager.GetUserAsync(HttpContext.User));
+            switch(userRoles[0])
+            {
+                case "Admin": return RedirectToAction("ControlPanel", "Admin"); break;
+                case "Brand": return RedirectToAction("Main", "ShopAdministration"); break;
+                default: return View(User);
+            }
+            return NotFound();
         }
         [Authorize]
         public async Task<RedirectResult> Logout(string returnUrl = "/")
