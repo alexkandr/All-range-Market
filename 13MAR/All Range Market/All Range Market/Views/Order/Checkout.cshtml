@@ -1,0 +1,57 @@
+﻿@model Order
+
+<h2>Завершите заказ</h2>
+<div asp-validation-summary="All" class="text-danger"></div>
+<form asp-action="Checkout" method="post">
+    <h3>Как нам Вас найти</h3>
+    <div class="form-group">
+        <label>Имя, фамилия:</label><input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Номер телефона</label><input asp-for="PhoneNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Способ оплаты</label>
+        <select asp-for="Method" class="form-control">
+            <option value="@PaymentMethod.Cash">Наличными</option>
+            <option value="@PaymentMethod.Debit_card">Банковской картой</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Способ доставки</label>
+        <select asp-for="Method" class="form-control">
+            <option value="@DeliveryType.Courier">Курьером</option>
+            <option value="@DeliveryType.Removal">Самовывоз</option>
+        </select>
+    </div>
+    <h3>Адрес</h3>
+    <p>Укажите адрес доставки, и мы начнём его оформлять прямо сейчас!</p>
+    <div class="form-group">
+        <label>Строка 1:</label><input asp-for="Line1" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Город:</label><input asp-for="City" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Регион:</label><input asp-for="State" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Почтовый индекс:</label><input asp-for="Zip" class="form-control" />
+    </div>
+    <p>Или выбирите один из досутупных пунктов самовывоза</p>
+    <div class="form-group">
+        <label>Пунты самовывоза</label>
+        <select class="form-control">
+            <option>Москва, Россия. Ул. Кедрова 21 кв3</option>
+        </select>
+    </div>
+    <h3>Допольнительно</h3>
+    <div class="checkbox">
+        <label>
+            <input asp-for="GiftWrap" /> Красиво упаковать
+        </label>
+    </div>
+    <div class="text-center">
+        <input class="btn btn-primary" type="submit" value="Оформить заказ" />
+    </div>
+</form>

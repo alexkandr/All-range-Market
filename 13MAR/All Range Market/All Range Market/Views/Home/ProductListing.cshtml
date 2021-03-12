@@ -1,0 +1,27 @@
+﻿@model (IEnumerable<All_Range_Market.Models.Product>, bool)
+
+@{
+    var l = Model.Item1.ToList();
+    for (int i = 0; i < l.Count / 3; i++)
+    {
+        <div class="box1">
+            @for (int j = i; j < i + 3; j++)
+            {
+                if (j > l.Count) break;
+                if (Model.Item2)
+                { 
+                <div class="col_1_of_3 span_1_of_3">
+                    @await Html.PartialAsync("ProductAppearance", l[j])
+                </div>
+                }
+                else
+                {
+                <div class="col_1_of_single1 span_1_of_single1">
+                    @await Html.PartialAsync("ProductAppearance", l[j])
+                </div>    
+                }
+            }
+        </div>
+        <div class="clear"> </div>
+    }
+}

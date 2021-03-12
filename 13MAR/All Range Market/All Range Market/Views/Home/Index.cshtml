@@ -1,0 +1,42 @@
+﻿@model IndexListViewModel
+
+<div class="index-banner">
+    <div class="wmuSlider example1" style="height: 560px;">
+        <div class="wmuSliderWrapper">
+            @for(int i = 0; i < Model.Banners.Count; i++)
+            {
+                <article style="position: relative; width: 100%; opacity: 1;">
+                <div class="banner-wrap">
+                    <div class="slider-left">
+                        <img src="@Model.Banners[i]" alt="" />
+                    </div>
+                    <div class="slider-right">
+                        <h1>Classic</h1>
+                        <h2></h2>
+                        <p>@Model.Description[i]</p>
+                        <div class="btn"><a href="@Model.Urls[i]">Перейти на страницу</a></div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </article>
+            }
+        </div>
+        <a class="wmuSliderPrev">Previous</a><a class="wmuSliderNext">Next</a>
+        <ul class="wmuSliderPagination">
+            <li><a href="#" class="">0</a></li>
+            <li><a href="#" class="">1</a></li>
+            <li><a href="#" class="wmuActive">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+        </ul>
+        <a class="wmuSliderPrev">Previous</a><a class="wmuSliderNext">Next</a><ul class="wmuSliderPagination"><li><a href="#" class="wmuActive">0</a></li><li><a href="#" class="">1</a></li><li><a href="#" class="">2</a></li><li><a href="#" class="">3</a></li><li><a href="#" class="">4</a></li></ul>
+    </div>
+    <script src="js/jquery.wmuSlider.js"></script>
+    <script type="text/javascript" src="js/modernizr.custom.min.js"></script>
+    <script>$('.example1').wmuSlider();</script>
+</div>
+<div class="main">
+    <div class="wrap">
+            @await Html.PartialAsync("ProductListing", (Model.Products, true))
+    </div>
+</div>

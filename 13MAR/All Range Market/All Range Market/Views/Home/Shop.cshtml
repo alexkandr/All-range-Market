@@ -1,0 +1,27 @@
+﻿@model All_Range_Market.Models.ViewModels.ShopListViewModel
+
+@foreach (var p in Model.Products)
+{
+<div class="card card-outline-primary m-1 p-1">
+    <partial name="ProductAppearance" model="p" />
+    <div>
+        <a asp-controller="home" asp-action="shop"
+           asp-route-brand="@p.Vendor.Brand"
+           asp-route-productPage="1">@p.Vendor.Brand </a> - @p.Vendor.TrustRate.ToString("F")
+    </div>
+</div>
+}
+<textarea name="comment"></textarea>
+<button type="submit">Отправить</button>
+<tr>
+    @foreach (var c in Model.Comments)
+    {
+        <td class="text-left">
+            <h3>@c.User</h3>
+            <p>@c.Time.ToString()</p>
+        </td>
+        <td class="text-center">
+            @c.Content
+        </td>
+    }
+</tr>

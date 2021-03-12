@@ -1,0 +1,13 @@
+﻿@model IEnumerable<string>
+
+@foreach (string vendor in Model)
+{
+    <a class="btn btn-block
+       @(vendor == ViewBag.SelectedVendor
+           ? "btn-primary": "btn-outline-secondary")"
+       asp-action="Index" asp-controller="Home"
+       asp-route-brand="@vendor"
+       asp-route-productPage="1">
+        @vendor
+    </a>
+}
